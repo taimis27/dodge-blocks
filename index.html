@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Star Drift - a minimalist sci-fi survival game built with HTML, CSS, and JavaScript."
+    />
+    <title>Star Drift</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-page">
+      <header class="hud" aria-live="polite">
+        <div class="stat-block stat-block--score">
+          <span class="label">Score</span>
+          <strong id="scoreValue">0</strong>
+        </div>
+        <div class="stat-block stat-block--highest">
+          <span class="label">Highest</span>
+          <strong id="highScoreValue">0</strong>
+        </div>
+        <div class="stat-block stat-block--level">
+          <span class="label">Level</span>
+          <strong id="levelValue">1</strong>
+        </div>
+        <div class="stat-block stat-block--hull">
+          <span class="label">Hull</span>
+          <strong id="hullValue">3/3</strong>
+        </div>
+      </header>
+
+      <section class="game-shell" aria-label="Star Drift game area">
+        <canvas
+          id="gameCanvas"
+          width="420"
+          height="560"
+          aria-label="Star Drift game canvas"
+        ></canvas>
+
+        <div id="readyOverlay" class="combat-overlay hidden" aria-live="polite">
+          GET<br />READY
+        </div>
+        <div
+          id="gameOverOverlay"
+          class="combat-overlay combat-overlay--game-over hidden"
+          aria-live="polite"
+        >
+          GAME<br />OVER
+        </div>
+
+        <div id="startScreen" class="screen screen--start">
+          <div class="screen-panel">
+            <h1 class="game-title" aria-label="Star Drift">
+              <span class="title-line"
+                ><span class="title-word">STAR</span></span
+              >
+              <span class="title-line"
+                ><span class="title-word">DRIFT</span></span
+              >
+            </h1>
+            <p class="screen-copy">Steer through the void and survive!</p>
+            <button id="startButton" class="primary-button" type="button">
+              START GAME
+            </button>
+
+            <button
+              id="toggleLeaderboardButton"
+              class="secondary-button leaderboard-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="startLeaderboardPanel"
+            >
+              TOP 5 SCORES
+            </button>
+
+            <div
+              id="startLeaderboardPanel"
+              class="leaderboard-panel leaderboard-view hidden"
+            >
+              <h2>Top 5 Scores</h2>
+              <ol
+                id="startLeaderboard"
+                class="leaderboard-list"
+                aria-label="Top 5 leaderboard"
+              ></ol>
+              <button
+                id="leaderboardBackButton"
+                class="secondary-button"
+                type="button"
+              >
+                BACK
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="gameOverScreen"
+          class="screen screen--game-over hidden"
+          aria-live="polite"
+        >
+          <div class="screen-panel">
+            <h2>RUN COMPLETE</h2>
+            <p class="screen-copy final-score-text">
+              Final Score: <span id="finalScoreValue">0</span>
+            </p>
+            <p id="highScoreMessage" class="screen-copy high-score-message"></p>
+            <button id="restartButton" class="primary-button" type="button">
+              RESTART
+            </button>
+            <button id="mainMenuButton" class="secondary-button" type="button">
+              MAIN MENU
+            </button>
+
+            <div class="leaderboard-panel">
+              <h3>Top 5 Scores</h3>
+              <ol
+                id="gameOverLeaderboard"
+                class="leaderboard-list"
+                aria-label="Top 5 leaderboard on game over"
+              ></ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div
+        id="pauseModal"
+        class="modal hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pauseModalTitle"
+      >
+        <div class="modal-card pause-card">
+          <h3 id="pauseModalTitle">Game Paused</h3>
+          <p>Take a breather and jump back in when you're ready.</p>
+          <div class="modal-actions modal-actions--stacked">
+            <button id="continueButton" class="primary-button" type="button">
+              CONTINUE
+            </button>
+            <button
+              id="pauseRestartButton"
+              class="secondary-button"
+              type="button"
+            >
+              RESTART
+            </button>
+            <button
+              id="pauseMainMenuButton"
+              class="secondary-button"
+              type="button"
+            >
+              MAIN MENU
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="scoreModal"
+        class="modal high-score-modal hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="scoreModalTitle"
+      >
+        <div class="modal-card">
+          <h3 id="scoreModalTitle">New High Score!</h3>
+          <p>Enter your name for the leaderboard.</p>
+          <label class="sr-only" for="playerNameInput">Player name</label>
+          <input
+            id="playerNameInput"
+            type="text"
+            maxlength="18"
+            placeholder="Player"
+            autocomplete="off"
+          />
+          <div class="modal-actions">
+            <button id="saveScoreButton" class="primary-button" type="button">
+              SAVE SCORE
+            </button>
+            <button id="skipScoreButton" class="secondary-button" type="button">
+              SKIP
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-controls" aria-label="Touch controls">
+        <button
+          id="leftControl"
+          class="move-button"
+          type="button"
+          aria-label="Move left"
+        >
+          ◀
+        </button>
+        <button
+          id="rightControl"
+          class="move-button"
+          type="button"
+          aria-label="Move right"
+        >
+          ▶
+        </button>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
