@@ -35,6 +35,18 @@
       </header>
 
       <section class="game-shell" aria-label="Star Drift game area">
+        <button
+          id="pauseButton"
+          class="pause-button hidden"
+          type="button"
+          aria-label="Pause game"
+        >
+          <span class="pause-icon" aria-hidden="true">
+            <span class="pause-bar"></span>
+            <span class="pause-bar"></span>
+          </span>
+        </button>
+
         <canvas
           id="gameCanvas"
           width="420"
@@ -45,6 +57,11 @@
         <div id="readyOverlay" class="combat-overlay hidden" aria-live="polite">
           GET<br />READY
         </div>
+        <div
+          id="powerUpBanner"
+          class="powerup-banner hidden"
+          aria-live="polite"
+        ></div>
         <div
           id="gameOverOverlay"
           class="combat-overlay combat-overlay--game-over hidden"
